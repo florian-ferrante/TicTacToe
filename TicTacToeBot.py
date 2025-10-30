@@ -1,5 +1,6 @@
 import random
 
+
 # On crée la grille vide
 board = ["-","-","-",
         "-","-","-",
@@ -41,23 +42,33 @@ def show_board():
 # On affiche la grille au début
 show_board()
 
+
 # Boucle principale du jeu
 # Tant que le jeu n'est pas terminé, le joueur ou le bot continue de jouer
+    
+
 while not end_game:
     if current_player == player:
         # Tour du joueur humain
+        
         print("C'est ton tour :", player)
         pos = input("Choisis une case (1 à 9) : ")
         while pos not in ["1","2","3","4","5","6","7","8","9"]:
             pos = input("Choisis une case entre 1 et 9 : ")
+
         # Rajouter un -1 a l'entier demandé par le joueur, pour tenir compte de l'indexation
         pos = int(pos) - 1
+        
         #Si la position demandé est "-" donc libre, on utilise le choix du joueur
         if board[pos] == "-":
             board[pos] = player
+        
         #Sinon, on annonce que la case est prise, et demande une nouvelle fois de faire un choix
         else:
-            print("Cette case est déjà prise, essaie encore.")
+            if board[pos] == bot:
+                print("Cette case contient deja un", bot)
+            elif board[pos] == player:
+                print("Cette case contient deja un", player)       
             continue
     else:
         # Tour du bot, import random qui joue de manière aléatoire
@@ -65,8 +76,7 @@ while not end_game:
         empty_case = [i for i in range(9) if board[i] == "-"]
         pos_bot = random.choice(empty_case)
         board[pos_bot] = bot
-
-    show_board()
+        show_board()
 
     # Vérifie les combinaisons gagnantes
     #Verifier les lignes/
@@ -102,6 +112,7 @@ while not end_game:
     # Vérifie s’il y a égalité
     # S'il n'y a plus de "-" et qu'il n'y a pas de gagnant, alors c'est un match nul
         if "-" not in board and winner is None:
+            
             end_game = True
 
     # Change de joueur si le jeu n’est pas fini
@@ -118,3 +129,4 @@ elif winner == bot:
     print("Le bot a gagné !")
 else:
     print("Match nul !")
+show_board()

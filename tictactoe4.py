@@ -16,15 +16,7 @@ joueur_actuel= ""
 game_end = False
 winner = ""
 
-#fonction qui execute l'algorythme
-def jouer():
-    choix_joueur()
-    show_board()
-    while game_end == False:
-        turn(joueur_actuel)
-        verify_end_game()
-        next_player()
-    result()
+
 
 #Fonction qui permet au joueur de choisir un symbole
 def choix_joueur():
@@ -47,9 +39,9 @@ def show_board():
     print("-------------")
     print("| " + board[0],"|", board[1], "|", board[2], "|              1 | 2 | 3 ")
     print("-------------")
-    print("| " + board[3],"|", board[4], "|", board[5], "|              1 | 2 | 3 ")
+    print("| " + board[3],"|", board[4], "|", board[5], "|              4 | 5 | 6 ")
     print("-------------")
-    print("| " + board[6],"|", board[7], "|", board[8], "|              1 | 2 | 3 ")
+    print("| " + board[6],"|", board[7], "|", board[8], "|              7 | 8 | 9 ")
     print("-------------")
 
 #fonction qui annonce le tour du joueur, et empeche de faire un choix autre que (1,9)
@@ -69,11 +61,6 @@ def turn(player):
             print("Vous ne pouvez pas acceder a cette position!")
     board[pos] = player
     show_board()
-
-#Fonction qui vérifie si le jeu est terminé, gagnant ou nul/
-def verify_end_game():
-    verify_win()
-    verify_draw()
 
 
 #Verifier le gagnant/
@@ -135,8 +122,17 @@ def result():
        print("Le gagnant est :", winner)
     else:
        print("Le match est nul/")
+       
 
-
-
+#fonction qui execute l'algorythme
+def jouer():
+    choix_joueur()
+    show_board()
+    while game_end == False:
+        turn(joueur_actuel)
+        verify_win()
+        verify_draw()
+        next_player()
+    result()
 
 jouer()
